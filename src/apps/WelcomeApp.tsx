@@ -1,12 +1,14 @@
+import { appRegistry } from "./registry";
 import type { AppComponentProps } from "./types";
 import styles from "./WelcomeApp.module.css";
 
 function WelcomeApp({
-  availableApps,
   openAppInTab,
   tabId,
   title,
 }: AppComponentProps) {
+  const availableApps = Object.values(appRegistry);
+
   return (
     <div className={styles.welcomeApp}>
       <h1>{title}</h1>

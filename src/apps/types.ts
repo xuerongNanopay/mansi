@@ -1,15 +1,8 @@
 import type { ComponentType } from "react";
 
-export type AppId = "welcome" | "custom" | "calculator";
-
-export type AvailableApp = {
-  id: AppId;
-  name: string;
-  description: string;
-};
+export type AppId = "custom" | "calculator";
 
 export type AppComponentProps = {
-  availableApps: AvailableApp[];
   openAppInTab: (tabId: string, appId: AppId) => void;
   tabId: string;
   title: string;
@@ -18,7 +11,6 @@ export type AppComponentProps = {
 export type AppDefinition = {
   description: string;
   id: AppId;
-  isVisibleInLauncher: boolean;
   name: string;
   component: ComponentType<AppComponentProps>;
 };

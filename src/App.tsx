@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { appRegistry } from "./apps/registry";
-import type { AppId, AvailableApp } from "./apps/types";
+import WelcomeApp from "./apps/WelcomeApp";
+import type { AppId } from "./apps/types";
 import "./App.css";
 
 type AppTab = {
   id: string;
   title: string;
-  appId: AppId;
+  appId?: AppId;
 };
 
 type TabsViewProps = {
   activeTab: AppTab;
-  availableApps: AvailableApp[];
   tabs: AppTab[];
   onCloseTab: (tabId: string) => void;
   onOpenAppInTab: (tabId: string, appId: AppId) => void;
@@ -20,7 +20,6 @@ type TabsViewProps = {
 
 function TabsView({
   activeTab,
-  availableApps,
   tabs,
   onCloseTab,
   onOpenAppInTab,
@@ -58,7 +57,9 @@ function TabsView({
       </div>
 
       {tabs.map((tab) => {
-        const AppComponent = appRegistry[tab.appId].component;
+        const AppComponent = tab.appId
+          ? appRegistry[tab.appId].component
+          : WelcomeApp;
 
         return (
           <div
@@ -69,7 +70,6 @@ function TabsView({
             hidden={tab.id !== activeTab.id}
           >
             <AppComponent
-              availableApps={availableApps}
               openAppInTab={onOpenAppInTab}
               tabId={tab.id}
               title={tab.title}
@@ -82,21 +82,17 @@ function TabsView({
 }
 
 function App() {
-  const availableApps = Object.values(appRegistry)
-    .filter((app) => app.isVisibleInLauncher)
-    .map(({ description, id, name }) => ({ description, id, name }));
   const [appName, setAppName] = useState("");
   const [tabs, setTabs] = useState<AppTab[]>([
-    { id: "welcome", title: "Welcome", appId: "welcome" },
+    { id: "welcome", title: "Welcome" },
   ]);
   const [activeTabId, setActiveTabId] = useState("welcome");
 
   function createNewAppTab() {
-    const title = "welcome";
+    const title = "Welcome";
     const newTab = {
       id: crypto.randomUUID(),
       title,
-      appId: "welcome" as const,
     };
 
     setTabs((currentTabs) => [...currentTabs, newTab]);
@@ -164,7 +160,6 @@ function App() {
       <main className="container">
         <TabsView
           activeTab={activeTab}
-          availableApps={availableApps}
           tabs={tabs}
           onCloseTab={closeTab}
           onOpenAppInTab={openAppInTab}
