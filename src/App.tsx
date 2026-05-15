@@ -1,34 +1,30 @@
-import { type ReactNode, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
+import { useState } from "react";
+import { appRegistry } from "./apps/registry";
+import type { AppId, AvailableApp } from "./apps/types";
 import "./App.css";
 
 type AppTab = {
   id: string;
   title: string;
+  appId: AppId;
 };
 
 type TabsViewProps = {
   activeTab: AppTab;
+  availableApps: AvailableApp[];
   tabs: AppTab[];
   onCloseTab: (tabId: string) => void;
+  onOpenAppInTab: (tabId: string, appId: AppId) => void;
   onSelectTab: (tabId: string) => void;
-  children: ReactNode;
-};
-
-type ActiveTabContentProps = {
-  greetMsg: string;
-  title: string;
-  onGreet: () => void;
-  onNameChange: (name: string) => void;
 };
 
 function TabsView({
   activeTab,
+  availableApps,
   tabs,
   onCloseTab,
+  onOpenAppInTab,
   onSelectTab,
-  children,
 }: TabsViewProps) {
   return (
     <section className="tab-view">
@@ -61,89 +57,67 @@ function TabsView({
         ))}
       </div>
 
-      <div className="tab-panel" role="tabpanel">
-        {children}
-      </div>
+      {tabs.map((tab) => {
+        const AppComponent = appRegistry[tab.appId].component;
+
+        return (
+          <div
+            // Ensure existing view do not get re-render.
+            key={tab.id}
+            className={tab.id === activeTab.id ? "tab-panel active" : "tab-panel"}
+            role="tabpanel"
+            hidden={tab.id !== activeTab.id}
+          >
+            <AppComponent
+              availableApps={availableApps}
+              openAppInTab={onOpenAppInTab}
+              tabId={tab.id}
+              title={tab.title}
+            />
+          </div>
+        );
+      })}
     </section>
   );
 }
 
-function ActiveTabContent({
-  greetMsg,
-  title,
-  onGreet,
-  onNameChange,
-}: ActiveTabContentProps) {
-  return (
-    <>
-      <h1>{title}</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          onGreet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => onNameChange(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </>
-  );
-}
-
-// function Tab
-
-// function AppSearchMenu() {
-//   return (
-//     <>
-
-//     </>
-//   )
-// }
-
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const availableApps = Object.values(appRegistry)
+    .filter((app) => app.isVisibleInLauncher)
+    .map(({ description, id, name }) => ({ description, id, name }));
   const [appName, setAppName] = useState("");
   const [tabs, setTabs] = useState<AppTab[]>([
-    { id: "welcome", title: "Welcome" },
+    { id: "welcome", title: "Welcome", appId: "welcome" },
   ]);
   const [activeTabId, setActiveTabId] = useState("welcome");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
   function createNewAppTab() {
-    const title = appName.trim() || `App ${tabs.length + 1}`;
+    const title = appName.trim() || "Pick an application";
     const newTab = {
       id: crypto.randomUUID(),
       title,
+      appId: "welcome" as const,
     };
 
     setTabs((currentTabs) => [...currentTabs, newTab]);
     setActiveTabId(newTab.id);
     setAppName("");
+  }
+
+  function openAppInTab(tabId: string, appId: AppId) {
+    const app = appRegistry[appId];
+
+    setTabs((currentTabs) =>
+      currentTabs.map((tab) =>
+        tab.id === tabId
+          ? {
+              ...tab,
+              appId,
+              title: app.name,
+            }
+          : tab,
+      ),
+    );
   }
 
   function closeTab(tabId: string) {
@@ -190,17 +164,12 @@ function App() {
       <main className="container">
         <TabsView
           activeTab={activeTab}
+          availableApps={availableApps}
           tabs={tabs}
           onCloseTab={closeTab}
+          onOpenAppInTab={openAppInTab}
           onSelectTab={setActiveTabId}
-        >
-          <ActiveTabContent
-            greetMsg={greetMsg}
-            title={activeTab.title}
-            onGreet={greet}
-            onNameChange={setName}
-          />
-        </TabsView>
+        />
       </main>
     </>
   );

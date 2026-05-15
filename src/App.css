@@ -204,6 +204,62 @@ body,
   text-align: center;
 }
 
+.tab-panel[hidden] {
+  display: none;
+}
+
+.app-tab-content {
+  min-height: 100%;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+.app-tab-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.app-tab-controls input {
+  width: min(100%, 360px);
+}
+
+.welcome-app {
+  min-height: 100%;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+.app-picker {
+  width: min(100%, 720px);
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.app-picker-item {
+  min-height: 96px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  text-align: left;
+}
+
+.app-picker-name {
+  font-weight: 700;
+}
+
+.app-picker-description {
+  color: #606060;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -350,6 +406,10 @@ button {
   .tab-close:hover:not(:disabled) {
     color: #ffffff;
     background-color: #2f2f2f;
+  }
+
+  .app-picker-description {
+    color: #c7c7c7;
   }
 
   .nav-brand {
