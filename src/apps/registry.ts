@@ -1,3 +1,4 @@
+import CalculatorApp from "./CalculatorApp";
 import CustomApp from "./CustomApp";
 import WelcomeApp from "./WelcomeApp";
 import type { AppDefinition, AppId } from "./types";
@@ -16,5 +17,12 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     isVisibleInLauncher: true,
     name: "Custom App",
     component: CustomApp,
+  },
+  calculator: {
+    description: "A simple calculator with state isolated per tab.",
+    id: "calculator",
+    isVisibleInLauncher: true,
+    name: "Calculator",
+    component: CalculatorApp,
   },
 };

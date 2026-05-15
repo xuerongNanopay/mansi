@@ -92,7 +92,7 @@ function App() {
   const [activeTabId, setActiveTabId] = useState("welcome");
 
   function createNewAppTab() {
-    const title = appName.trim() || "Pick an application";
+    const title = "welcome";
     const newTab = {
       id: crypto.randomUUID(),
       title,

@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type AppId = "welcome" | "custom";
+export type AppId = "welcome" | "custom" | "calculator";
 
 export type AvailableApp = {
   id: AppId;

@@ -1,16 +1,17 @@
 import { useState } from "react";
 import type { AppComponentProps } from "./types";
+import styles from "./CustomApp.module.css";
 
 function CustomApp({ title }: AppComponentProps) {
   const [note, setNote] = useState("");
   const [count, setCount] = useState(0);
 
   return (
-    <div className="app-tab-content">
+    <div className={styles.appTabContent}>
       <h1>{title}</h1>
       <p>This app tab is its own mounted application instance.</p>
 
-      <div className="app-tab-controls">
+      <div className={styles.appTabControls}>
         <input
           value={note}
           onChange={(e) => setNote(e.currentTarget.value)}

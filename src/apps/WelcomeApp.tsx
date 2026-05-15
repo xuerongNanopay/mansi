@@ -1,4 +1,5 @@
 import type { AppComponentProps } from "./types";
+import styles from "./WelcomeApp.module.css";
 
 function WelcomeApp({
   availableApps,
@@ -7,20 +8,20 @@ function WelcomeApp({
   title,
 }: AppComponentProps) {
   return (
-    <div className="welcome-app">
+    <div className={styles.welcomeApp}>
       <h1>{title}</h1>
       <p>Select an application to open in this tab.</p>
 
-      <div className="app-picker">
+      <div className={styles.appPicker}>
         {availableApps.map((app) => (
           <button
-            className="app-picker-item"
+            className={styles.appPickerItem}
             key={app.id}
             type="button"
             onClick={() => openAppInTab(tabId, app.id)}
           >
-            <span className="app-picker-name">{app.name}</span>
-            <span className="app-picker-description">{app.description}</span>
+            <span className={styles.appPickerName}>{app.name}</span>
+            <span className={styles.appPickerDescription}>{app.description}</span>
           </button>
         ))}
       </div>
