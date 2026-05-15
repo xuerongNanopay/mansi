@@ -25,6 +25,7 @@ function App() {
   return (
     <>
       <nav className="top-nav">
+        <div className="nav-drag-region" data-tauri-drag-region />
         <div className="nav-search">
           <input
             id="directory-input"
@@ -41,6 +42,7 @@ function App() {
             +
           </button>
         </div>
+        <div className="nav-drag-region" data-tauri-drag-region />
       </nav>
 
       <main className="container">

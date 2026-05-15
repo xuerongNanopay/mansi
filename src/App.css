@@ -31,16 +31,21 @@ body {
   left: 0;
   right: 0;
   z-index: 10;
-  min-height: 64px;
+  min-height: 52px;
   padding: 0 24px;
   display: grid;
-  grid-template-columns: 1fr minmax(0, 560px) 1fr;
+  grid-template-columns: minmax(92px, 1fr) minmax(0, 560px) 1fr;
   align-items: center;
   gap: 16px;
   border-bottom: 1px solid #d8d8d8;
   background: rgba(246, 246, 246, 0.92);
   backdrop-filter: blur(14px);
   box-sizing: border-box;
+}
+
+.nav-drag-region {
+  width: 100%;
+  height: 100%;
 }
 
 .nav-brand {
@@ -61,23 +66,23 @@ body {
 
 .nav-search input {
   flex: 1;
-  height: 44px;
+  height: 36px;
   min-width: 0;
   box-sizing: border-box;
 }
 
 .nav-add-button {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  flex: 0 0 44px;
-  font-size: 1.5rem;
+  flex: 0 0 36px;
+  font-size: 1.35rem;
   line-height: 1;
 }
 
 .container {
   margin: 0;
-  padding: 96px 24px 32px;
+  padding: 84px 24px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -163,14 +168,18 @@ button {
 
 @media (max-width: 640px) {
   .top-nav {
-    min-height: 64px;
+    min-height: 52px;
     padding: 0 16px;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(72px, 1fr) minmax(0, 1fr);
     align-items: center;
   }
 
+  .nav-drag-region:last-child {
+    display: none;
+  }
+
   .nav-search {
-    grid-column: 1;
+    grid-column: 2;
     justify-self: stretch;
   }
 
@@ -179,7 +188,7 @@ button {
   }
 
   .container {
-    padding-top: 136px;
+    padding-top: 84px;
   }
 }
 
