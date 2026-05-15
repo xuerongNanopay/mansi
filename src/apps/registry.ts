@@ -1,5 +1,6 @@
 import Calculator from "./Calculator";
 import Custom from "./Custom";
+import PostgresStudio from "./PostgresStudio";
 import Solar from "./Solar";
 import type { AppDefinition, AppId } from "./types";
 
@@ -9,6 +10,12 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     id: "custom",
     name: "Custom App",
     component: Custom,
+  },
+  postgresStudio: {
+    description: "A PostgreSQL client interface.",
+    id: "postgresStudio",
+    name: "Postgres Studio",
+    component: PostgresStudio,
   },
   calculator: {
     description: "A simple calculator with state isolated per tab.",

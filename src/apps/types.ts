@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type AppId = "custom" | "calculator" | "solar";
+export type AppId = "custom" | "calculator" | "solar" | "postgresStudio";
 
 export type AppComponentProps = {
   tabId: string;
