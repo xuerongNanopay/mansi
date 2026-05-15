@@ -8,7 +8,7 @@ type AppTab = {
   title: string;
 };
 
-type TabViewProps = {
+type TabsViewProps = {
   activeTab: AppTab;
   tabs: AppTab[];
   onCloseTab: (tabId: string) => void;
@@ -23,13 +23,13 @@ type ActiveTabContentProps = {
   onNameChange: (name: string) => void;
 };
 
-function TabView({
+function TabsView({
   activeTab,
   tabs,
   onCloseTab,
   onSelectTab,
   children,
-}: TabViewProps) {
+}: TabsViewProps) {
   return (
     <section className="tab-view">
       <div className="tab-list" role="tablist" aria-label="App tabs">
@@ -110,6 +110,16 @@ function ActiveTabContent({
   );
 }
 
+// function Tab
+
+// function AppSearchMenu() {
+//   return (
+//     <>
+
+//     </>
+//   )
+// }
+
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
@@ -178,7 +188,7 @@ function App() {
       </nav>
 
       <main className="container">
-        <TabView
+        <TabsView
           activeTab={activeTab}
           tabs={tabs}
           onCloseTab={closeTab}
@@ -190,7 +200,7 @@ function App() {
             onGreet={greet}
             onNameChange={setName}
           />
-        </TabView>
+        </TabsView>
       </main>
     </>
   );
