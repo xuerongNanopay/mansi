@@ -6,6 +6,8 @@
   filter: drop-shadow(0 0 2em #61dafb);
 }
 :root {
+  --top-nav-height: 52px;
+
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -25,13 +27,19 @@ body {
   margin: 0;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 .top-nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  min-height: 52px;
+  min-height: var(--top-nav-height);
   padding: 0 24px;
   display: grid;
   grid-template-columns: minmax(92px, 1fr) minmax(0, 560px) 1fr;
@@ -82,10 +90,118 @@ body {
 
 .container {
   margin: 0;
-  padding: 84px 24px 32px;
+  padding: var(--top-nav-height) 0 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  box-sizing: border-box;
+}
+
+.tab-view {
+  width: 100%;
+  height: calc(100vh - var(--top-nav-height));
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: none;
+}
+
+.tab-list {
+  flex: 0 0 auto;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+  border-bottom: 1px solid #d8d8d8;
+  background: rgba(235, 235, 235, 0.72);
+}
+
+.tab {
+  min-width: 132px;
+  max-width: 220px;
+  height: 100%;
+  padding: 0 6px 0 12px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.58);
+  box-sizing: border-box;
+}
+
+.tab.active {
+  position: relative;
+  border-color: #c8c8c8;
+  border-bottom-color: transparent;
+  background: #ffffff;
+  font-weight: 700;
+}
+
+.tab.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #396cd8;
+}
+
+.tab:hover:not(.active) {
+  border-color: #c8c8c8;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.tab-label,
+.tab-close {
+  height: 28px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.tab-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.tab-close {
+  width: 24px;
+  flex: 0 0 24px;
+  color: #6b6b6b;
+  line-height: 1;
+}
+
+.tab-close:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.tab-close:hover:not(:disabled) {
+  border-color: transparent;
+  color: #0f0f0f;
+  background-color: #e8e8e8;
+}
+
+.tab-panel {
+  flex: 1;
+  min-height: 0;
+  padding: 28px 24px 32px;
+  overflow: auto;
   text-align: center;
 }
 
@@ -154,21 +270,9 @@ button {
   margin-right: 5px;
 }
 
-.directory-list {
-  width: min(100%, 560px);
-  margin: 24px auto 0;
-  padding: 0;
-  list-style-position: inside;
-  text-align: left;
-}
-
-.directory-list li {
-  padding: 6px 0;
-}
-
 @media (max-width: 640px) {
   .top-nav {
-    min-height: 52px;
+    min-height: var(--top-nav-height);
     padding: 0 16px;
     grid-template-columns: minmax(72px, 1fr) minmax(0, 1fr);
     align-items: center;
@@ -188,7 +292,11 @@ button {
   }
 
   .container {
-    padding-top: 84px;
+    padding-top: var(--top-nav-height);
+  }
+
+  .tab-panel {
+    padding: 24px 16px 28px;
   }
 }
 
@@ -205,6 +313,44 @@ button {
   .top-nav {
     border-bottom-color: #454545;
     background: rgba(47, 47, 47, 0.92);
+  }
+
+  .tab-view {
+    border-color: #454545;
+    background: rgba(25, 25, 25, 0.74);
+  }
+
+  .tab-list {
+    border-bottom-color: #454545;
+    background: rgba(18, 18, 18, 0.72);
+  }
+
+  .tab.active {
+    border-color: #454545;
+    border-bottom-color: transparent;
+    background: #0f0f0f;
+  }
+
+  .tab.active::before {
+    background: #24c8db;
+  }
+
+  .tab {
+    background: rgba(15, 15, 15, 0.58);
+  }
+
+  .tab:hover:not(.active) {
+    border-color: #5a5a5a;
+    background: rgba(31, 31, 31, 0.9);
+  }
+
+  .tab-close {
+    color: #cfcfcf;
+  }
+
+  .tab-close:hover:not(:disabled) {
+    color: #ffffff;
+    background-color: #2f2f2f;
   }
 
   .nav-brand {
