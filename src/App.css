@@ -21,9 +21,60 @@
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  margin: 0;
+}
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  min-height: 64px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 560px) 1fr;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #d8d8d8;
+  background: rgba(246, 246, 246, 0.92);
+  backdrop-filter: blur(14px);
+  box-sizing: border-box;
+}
+
+.nav-brand {
+  justify-self: start;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f0f0f;
+}
+
+.nav-search {
+  width: 100%;
+  grid-column: 2;
+  display: flex;
+  justify-self: center;
+  gap: 8px;
+}
+
+.nav-search input {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-add-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  flex: 0 0 44px;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
 .container {
   margin: 0;
-  padding-top: 10vh;
+  padding: 96px 24px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,6 +146,40 @@ button {
   margin-right: 5px;
 }
 
+.directory-list {
+  width: min(100%, 560px);
+  margin: 24px auto 0;
+  padding: 0;
+  list-style-position: inside;
+  text-align: left;
+}
+
+.directory-list li {
+  padding: 6px 0;
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    min-height: 112px;
+    padding: 12px 16px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .nav-search {
+    grid-column: 1;
+    justify-self: stretch;
+  }
+
+  .nav-search input {
+    width: 100%;
+  }
+
+  .container {
+    padding-top: 136px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
@@ -103,6 +188,15 @@ button {
 
   a:hover {
     color: #24c8db;
+  }
+
+  .top-nav {
+    border-bottom-color: #454545;
+    background: rgba(47, 47, 47, 0.92);
+  }
+
+  .nav-brand {
+    color: #f6f6f6;
   }
 
   input,

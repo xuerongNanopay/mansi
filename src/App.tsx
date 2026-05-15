@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
-  const [directoryPath, setDirectoryPath] = useState("");
+  const [appName, setAppName] = useState("");
   const [listPath, setListPath] = useState<string[]>([]);
 
   async function greet() {
@@ -18,60 +18,70 @@ function App() {
     setListPath(await invoke<string[]>("list_files", { path }));
   }
 
+  async function createNewAppTab() {
+    console.log("print - createNewAppType")
+  }
+
   return (
-    <main className="container">
-      <h1>Welcome to Mansi</h1>
+    <>
+      <nav className="top-nav">
+        <div className="nav-search">
+          <input
+            id="directory-input"
+            value={appName}
+            onChange={(e) => setAppName(e.currentTarget.value)}
+            placeholder="Search application..."
+          />
+          <button
+            className="nav-add-button"
+            type="button"
+            aria-label="Read directory"
+            onClick={() => createNewAppTab()}
+          >
+            +
+          </button>
+        </div>
+      </nav>
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+      <main className="container">
+        <h1>Welcome to Mansi</h1>
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
+        <div className="row">
+          <a href="https://vite.dev" target="_blank">
+            <img src="/vite.svg" className="logo vite" alt="Vite logo" />
+          </a>
+          <a href="https://tauri.app" target="_blank">
+            <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
+          </a>
+          <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
+        <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          readDirectory(directoryPath);
-        }}
-      >
-        <input
-          id="directory-input"
-          onChange={(e) => setDirectoryPath(e.currentTarget.value)}
-          placeholder="Enter a directory path..."
-        />
-        <button type="submit">Read Directory</button>
-      </form>
+        <form
+          className="row"
+          onSubmit={(e) => {
+            e.preventDefault();
+            greet();
+          }}
+        >
+          <input
+            id="greet-input"
+            onChange={(e) => setName(e.currentTarget.value)}
+            placeholder="Enter a name..."
+          />
+          <button type="submit">Greet</button>
+        </form>
+        <p>{greetMsg}</p>
 
-      <ul>
-        {listPath.map((path) => (
-          <li key={path}>{path}</li>
-        ))}
-      </ul>
-    </main>
+        <ul className="directory-list">
+          {listPath.map((path) => (
+            <li key={path}>{path}</li>
+          ))}
+        </ul>
+      </main>
+    </>
   );
 }
 
