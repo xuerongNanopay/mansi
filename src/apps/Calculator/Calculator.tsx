@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { AppComponentProps } from "../types";
-import styles from "./CalculatorApp.module.css";
+import styles from "./Calculator.module.css";
 
 const operators = ["+", "-", "x", "/"] as const;
 
@@ -19,7 +19,7 @@ function calculate(left: number, operator: Operator, right: number) {
   }
 }
 
-function CalculatorApp({ title }: AppComponentProps) {
+function Calculator({ title }: AppComponentProps) {
   const [leftValue, setLeftValue] = useState("0");
   const [rightValue, setRightValue] = useState("0");
   const [operator, setOperator] = useState<Operator>("+");
@@ -72,4 +72,4 @@ function CalculatorApp({ title }: AppComponentProps) {
   );
 }
 
-export default CalculatorApp;
+export default Calculator;

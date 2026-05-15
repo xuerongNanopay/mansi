@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { appRegistry } from "./apps/registry";
-import WelcomeApp from "./apps/WelcomeApp";
+import Welcome from "./apps/Welcome";
 import type { AppId } from "./apps/types";
 import "./App.css";
 
@@ -72,7 +72,7 @@ function TabsView({
             {AppComponent ? (
               <AppComponent tabId={tab.id} title={tab.title} />
             ) : (
-              <WelcomeApp
+              <Welcome
                 openAppInTab={onOpenAppInTab}
                 tabId={tab.id}
                 title={tab.title}

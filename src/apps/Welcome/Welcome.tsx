@@ -1,12 +1,12 @@
 import { appRegistry } from "../registry";
-import type { WelcomeAppProps } from "../types";
-import styles from "./WelcomeApp.module.css";
+import type { WelcomeProps } from "../types";
+import styles from "./Welcome.module.css";
 
-function WelcomeApp({
+function Welcome({
   openAppInTab,
   tabId,
   title,
-}: WelcomeAppProps) {
+}: WelcomeProps) {
   const availableApps = Object.values(appRegistry);
 
   return (
@@ -31,4 +31,4 @@ function WelcomeApp({
   );
 }
 
-export default WelcomeApp;
+export default Welcome;

@@ -1,7 +1,7 @@
 import type { AppComponentProps } from "../types";
-import styles from "./SolarApp.module.css";
+import styles from "./Solar.module.css";
 
-function SolarApp({ title }: AppComponentProps) {
+function Solar({ title }: AppComponentProps) {
   return (
     <div className={styles.solarApp}>
       <div className={styles.sun} />
@@ -27,4 +27,4 @@ function SolarApp({ title }: AppComponentProps) {
   );
 }
 
-export default SolarApp;
+export default Solar;

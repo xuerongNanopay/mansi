@@ -1,6 +1,6 @@
-import CalculatorApp from "./CalculatorApp";
-import CustomApp from "./CustomApp";
-import SolarApp from "./SolarApp";
+import Calculator from "./Calculator";
+import Custom from "./Custom";
+import Solar from "./Solar";
 import type { AppDefinition, AppId } from "./types";
 
 export const appRegistry: Record<AppId, AppDefinition> = {
@@ -8,18 +8,18 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     description: "A starter app with its own local state per tab.",
     id: "custom",
     name: "Custom App",
-    component: CustomApp,
+    component: Custom,
   },
   calculator: {
     description: "A simple calculator with state isolated per tab.",
     id: "calculator",
     name: "Calculator",
-    component: CalculatorApp,
+    component: Calculator,
   },
   solar: {
     description: "A solar-themed painted background.",
     id: "solar",
     name: "Solar Paint",
-    component: SolarApp,
+    component: Solar,
   },
 };

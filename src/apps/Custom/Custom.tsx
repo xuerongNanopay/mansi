@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { AppComponentProps } from "../types";
-import styles from "./CustomApp.module.css";
+import styles from "./Custom.module.css";
 
-function CustomApp({ title }: AppComponentProps) {
+function Custom({ title }: AppComponentProps) {
   const [note, setNote] = useState("");
   const [count, setCount] = useState(0);
 
@@ -25,4 +25,4 @@ function CustomApp({ title }: AppComponentProps) {
   );
 }
 
-export default CustomApp;
+export default Custom;

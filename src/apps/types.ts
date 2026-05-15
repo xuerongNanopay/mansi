@@ -7,7 +7,7 @@ export type AppComponentProps = {
   title: string;
 };
 
-export type WelcomeAppProps = AppComponentProps & {
+export type WelcomeProps = AppComponentProps & {
   openAppInTab: (tabId: string, appId: AppId) => void;
 };
 
