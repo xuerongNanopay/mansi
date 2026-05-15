@@ -1,5 +1,6 @@
 import CalculatorApp from "./CalculatorApp";
 import CustomApp from "./CustomApp";
+import SolarApp from "./SolarApp";
 import type { AppDefinition, AppId } from "./types";
 
 export const appRegistry: Record<AppId, AppDefinition> = {
@@ -14,5 +15,11 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     id: "calculator",
     name: "Calculator",
     component: CalculatorApp,
+  },
+  solar: {
+    description: "A solar-themed painted background.",
+    id: "solar",
+    name: "Solar Paint",
+    component: SolarApp,
   },
 };

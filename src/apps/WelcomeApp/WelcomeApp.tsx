@@ -1,5 +1,5 @@
-import { appRegistry } from "./registry";
-import type { WelcomeAppProps } from "./types";
+import { appRegistry } from "../registry";
+import type { WelcomeAppProps } from "../types";
 import styles from "./WelcomeApp.module.css";
 
 function WelcomeApp({

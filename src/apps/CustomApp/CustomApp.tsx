@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { AppComponentProps } from "./types";
+import type { AppComponentProps } from "../types";
 import styles from "./CustomApp.module.css";
 
 function CustomApp({ title }: AppComponentProps) {

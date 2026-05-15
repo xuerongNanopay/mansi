@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type AppId = "custom" | "calculator";
+export type AppId = "custom" | "calculator" | "solar";
 
 export type AppComponentProps = {
   tabId: string;

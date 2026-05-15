@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { AppComponentProps } from "./types";
+import type { AppComponentProps } from "../types";
 import styles from "./CalculatorApp.module.css";
 
 const operators = ["+", "-", "x", "/"] as const;
