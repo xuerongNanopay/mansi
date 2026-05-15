@@ -59,7 +59,7 @@ function TabsView({
       {tabs.map((tab) => {
         const AppComponent = tab.appId
           ? appRegistry[tab.appId].component
-          : WelcomeApp;
+          : undefined;
 
         return (
           <div
@@ -69,11 +69,15 @@ function TabsView({
             role="tabpanel"
             hidden={tab.id !== activeTab.id}
           >
-            <AppComponent
-              openAppInTab={onOpenAppInTab}
-              tabId={tab.id}
-              title={tab.title}
-            />
+            {AppComponent ? (
+              <AppComponent tabId={tab.id} title={tab.title} />
+            ) : (
+              <WelcomeApp
+                openAppInTab={onOpenAppInTab}
+                tabId={tab.id}
+                title={tab.title}
+              />
+            )}
           </div>
         );
       })}
