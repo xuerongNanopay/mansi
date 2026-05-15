@@ -47,7 +47,6 @@ function TabsView({
               className="tab-close"
               type="button"
               aria-label={`Close ${tab.title}`}
-              disabled={tabs.length === 1}
               onClick={() => onCloseTab(tab.id)}
             >
               x
@@ -92,12 +91,15 @@ function App() {
   ]);
   const [activeTabId, setActiveTabId] = useState("welcome");
 
-  function createNewAppTab() {
-    const title = "Welcome";
-    const newTab = {
+  function createWelcomeTab(): AppTab {
+    return {
       id: crypto.randomUUID(),
-      title,
+      title: "Welcome",
     };
+  }
+
+  function createNewAppTab() {
+    const newTab = createWelcomeTab();
 
     setTabs((currentTabs) => [...currentTabs, newTab]);
     setActiveTabId(newTab.id);
@@ -122,6 +124,9 @@ function App() {
 
   function closeTab(tabId: string) {
     if (tabs.length === 1) {
+      const newTab = createWelcomeTab();
+      setTabs([newTab]);
+      setActiveTabId(newTab.id);
       return;
     }
 
