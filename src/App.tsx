@@ -6,10 +6,16 @@ import "./App.css";
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
+  const [directoryPath, setDirectoryPath] = useState("");
+  const [listPath, setListPath] = useState<string[]>([]);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     setGreetMsg(await invoke("greet", { name }));
+  }
+
+  async function readDirectory(path: string) {
+    setListPath(await invoke<string[]>("list_files", { path }));
   }
 
   return (
@@ -44,6 +50,27 @@ function App() {
         <button type="submit">Greet</button>
       </form>
       <p>{greetMsg}</p>
+
+      <form
+        className="row"
+        onSubmit={(e) => {
+          e.preventDefault();
+          readDirectory(directoryPath);
+        }}
+      >
+        <input
+          id="directory-input"
+          onChange={(e) => setDirectoryPath(e.currentTarget.value)}
+          placeholder="Enter a directory path..."
+        />
+        <button type="submit">Read Directory</button>
+      </form>
+
+      <ul>
+        {listPath.map((path) => (
+          <li key={path}>{path}</li>
+        ))}
+      </ul>
     </main>
   );
 }
